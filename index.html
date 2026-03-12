@@ -590,6 +590,153 @@
       letter-spacing: 0.02em;
     }
 
+    /* ── BEFORE / AFTER SLIDERS ── */
+    .ba-section {
+      padding: 96px 0 0;
+      background: var(--white);
+    }
+    .ba-section .section-head { margin-bottom: 3rem; }
+
+    .ba-sliders {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .ba-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: ew-resize;
+      user-select: none;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+
+    /* Both images fill the container */
+    .ba-wrap .ba-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    /* "After" image is clipped on the right side by the handle position */
+    .ba-wrap .ba-after {
+      clip-path: inset(0 50% 0 0);
+      transition: clip-path 0s;
+    }
+
+    /* Placeholder divs when no real images */
+    .ba-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .ba-placeholder-before {
+      background: #c8d5b9;
+    }
+    .ba-placeholder-after {
+      background: #4a6741;
+      clip-path: inset(0 50% 0 0);
+    }
+    .ba-placeholder span {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .ba-placeholder-before span { color: rgba(0,0,0,0.4); }
+    .ba-placeholder-after span  { color: rgba(255,255,255,0.7); }
+    .ba-placeholder .ph-icon { font-size: 2.5rem; opacity: 0.4; }
+
+    /* Divider line */
+    .ba-divider {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: var(--white);
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* Handle button */
+    .ba-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      background: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 4;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    }
+    .ba-handle svg {
+      width: 20px;
+      height: 20px;
+      color: var(--black);
+    }
+
+    /* Labels */
+    .ba-label {
+      position: absolute;
+      bottom: 1rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .ba-label-before {
+      left: 1rem;
+      background: rgba(0,0,0,0.45);
+      color: rgba(255,255,255,0.85);
+    }
+    .ba-label-after {
+      right: 1rem;
+      background: rgba(0,0,0,0.45);
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* Caption below slider */
+    .ba-caption {
+      padding: 0.9rem 0 0;
+      font-size: 0.8rem;
+      color: var(--light);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .ba-caption::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .ba-sliders { grid-template-columns: 1fr; }
+      .ba-section { padding: 60px 0 0; }
+    }
+
     /* ── SCROLL REVEAL ── */
     .reveal {
       opacity: 0;
@@ -773,6 +920,68 @@
     </div>
   </div>
 </div>
+
+<!-- Before / After Sliders -->
+<section class="ba-section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label">Before &amp; After</span>
+      <h2 style="font-family:'Instrument Serif',serif; font-size:clamp(1.9rem,3.5vw,2.8rem); letter-spacing:-0.02em; color:var(--black);">See the difference<br>we make.</h2>
+      <p class="sub">Drag the handle left or right to compare before and after.</p>
+    </div>
+    <div class="ba-sliders">
+
+      <!-- Slider 1 -->
+      <div>
+        <div class="ba-wrap reveal" id="slider1">
+          <div class="ba-placeholder ba-placeholder-before">
+            <span class="ph-icon">📷</span>
+            <span>Before — replace with your photo</span>
+          </div>
+          <div class="ba-placeholder ba-placeholder-after" id="slider1-after">
+            <span class="ph-icon">🌿</span>
+            <span>After — replace with your photo</span>
+          </div>
+          <div class="ba-divider" id="slider1-divider"></div>
+          <div class="ba-handle" id="slider1-handle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+              <polyline points="10 18 4 12 10 6"></polyline>
+              <polyline points="14 18 20 12 14 6"></polyline>
+            </svg>
+          </div>
+          <span class="ba-label ba-label-before">Before</span>
+          <span class="ba-label ba-label-after">After</span>
+        </div>
+        <p class="ba-caption">Mulching &amp; bed cleanup — Falls Church, VA</p>
+      </div>
+
+      <!-- Slider 2 -->
+      <div>
+        <div class="ba-wrap reveal" id="slider2">
+          <div class="ba-placeholder ba-placeholder-before">
+            <span class="ph-icon">📷</span>
+            <span>Before — replace with your photo</span>
+          </div>
+          <div class="ba-placeholder ba-placeholder-after" id="slider2-after">
+            <span class="ph-icon">🌿</span>
+            <span>After — replace with your photo</span>
+          </div>
+          <div class="ba-divider" id="slider2-divider"></div>
+          <div class="ba-handle" id="slider2-handle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+              <polyline points="10 18 4 12 10 6"></polyline>
+              <polyline points="14 18 20 12 14 6"></polyline>
+            </svg>
+          </div>
+          <span class="ba-label ba-label-before">Before</span>
+          <span class="ba-label ba-label-after">After</span>
+        </div>
+        <p class="ba-caption">Sod installation — Arlington, VA</p>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- About -->
 <section class="section" id="about">
@@ -1180,7 +1389,47 @@
     window.location.href = 'mailto:admin@hallslandscapers.com?subject=Free%20Estimate%20Request&body=I%20would%20like%20a%20free%20estimate%20for%20my%20property.';
   }
 
-  // Contact grid responsive
+
+  // ── Before / After Sliders ──
+  function initSlider(id) {
+    const wrap = document.getElementById(id);
+    if (!wrap) return;
+    const after   = document.getElementById(id + '-after');
+    const divider = document.getElementById(id + '-divider');
+    const handle  = document.getElementById(id + '-handle');
+    let dragging = false;
+
+    function setPosition(pct) {
+      pct = Math.max(2, Math.min(98, pct));
+      const right = 100 - pct;
+      after.style.clipPath   = `inset(0 ${right}% 0 0)`;
+      divider.style.left     = pct + '%';
+      handle.style.left      = pct + '%';
+    }
+
+    function getPercent(clientX) {
+      const rect = wrap.getBoundingClientRect();
+      return ((clientX - rect.left) / rect.width) * 100;
+    }
+
+    // Mouse
+    wrap.addEventListener('mousedown', e => { dragging = true; setPosition(getPercent(e.clientX)); });
+    window.addEventListener('mousemove', e => { if (dragging) setPosition(getPercent(e.clientX)); });
+    window.addEventListener('mouseup', () => { dragging = false; });
+
+    // Touch
+    wrap.addEventListener('touchstart', e => { dragging = true; setPosition(getPercent(e.touches[0].clientX)); }, { passive: true });
+    window.addEventListener('touchmove', e => { if (dragging) setPosition(getPercent(e.touches[0].clientX)); }, { passive: true });
+    window.addEventListener('touchend', () => { dragging = false; });
+
+    // Init at 50%
+    setPosition(50);
+  }
+
+  initSlider('slider1');
+  initSlider('slider2');
+
+
   function checkLayout() {
     const cl = document.querySelector('.contact-layout');
     if (!cl) return;
